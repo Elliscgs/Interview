@@ -26,7 +26,7 @@ with open('./ytlist.txt', 'r') as t: #把所有想爬的頻道清單存成 ytlis
                 title = info['Title']
                 cn = info['ChannelName']
                 rstr = r"[\/\\\:\*\?\"\<\>\|]"  # '/ \ : * ? " < > |'
-                new_title = re.sub(rstr, "_", title)  # 替換為下劃線
+                new_title = re.sub(rstr, "_", title)  # 替換為下底線
 
                  i=1
                  sum=0
