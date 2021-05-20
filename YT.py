@@ -54,3 +54,5 @@ with open('./ytlist.txt', 'r') as t: #把所有想爬的頻道清單存成 ytlis
         scrfilename = cn + "\\test.txt"          #修改前的檔名
         nowfilename = cn + "\\" + cn + ".txt"       #修改的檔名
         os.rename(scrfilename, nowfilename)
+
+        
