@@ -58,3 +58,4 @@ df = pd.DataFrame(data)  # 读取整张表 (DataFrame)
 
 # print(data)
 print(df)
+
