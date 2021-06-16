@@ -60,7 +60,7 @@ def handle_message(event):
         file.close()  
        
     
-    #讀取(DM用版讀取最後1筆，可置換上面A1段，理論上要拿全部歷史搜尋當作 TEG 下去比對模型才會有越來越準的效果)  
+    #讀取(DM用版讀取最後1筆)  
         with open('./' + (user_name) +'搜尋紀錄.txt', 'rt', encoding='utf-8') as f:
             txt=f.readlines()
         keys=[r for r in range(1,len(txt)+1)]
