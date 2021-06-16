@@ -72,7 +72,7 @@ def handle_message(event):
         host='127.0.0.1',
         port=3306,
         user='root',
-        password='1813147cgs', #這個換成自己的密碼
+        password='*', #這個換成自己的密碼
         database='for_linebot'#這個以用 MySQl先建
         )
 
