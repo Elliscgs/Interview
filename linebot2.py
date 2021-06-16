@@ -66,7 +66,7 @@ def handle_message(event):
             txt=f.readlines()
         keys=[r for r in range(1,len(txt)+1)]
         result={k:v for k,v in zip(keys,txt[::-1])} 
-        x = result[1]   #[n]=倒數第 n 筆
+        x = result[1].split("\n")[0]  #[n]=倒數第 n 筆 並去除換行符號
         print(x)
 
         mydb = pymysql.connect(
@@ -79,7 +79,7 @@ def handle_message(event):
 
         mycursor = mydb.cursor()
 
-        mycursor.execute("SELECT cnurl FROM customers WHERE cntitle LIKE '%危險%'") #要想辦法把'危險'改成帶入X
+        mycursor.execute("SELECT cnurl FROM customers WHERE cntitle LIKE '%" + x + "%'") 
 
         myresult = mycursor.fetchall()
 
