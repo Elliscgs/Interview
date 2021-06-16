@@ -10,10 +10,9 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage
 )
-import os
-import re
+
 import pymysql.cursors
-import pandas as pd 
+
 
 # 建立 flask server
 app = Flask(__name__)
@@ -51,7 +50,7 @@ def handle_message(event):
        
         line_bot_api.reply_message(event.reply_token, 
                                    TextSendMessage(text = '請點左下角的小鍵盤，輸入您想看的影片類型或關鍵字喔!!!'))
-    #儲存使用者搜尋資料(暫存於桌面)
+    #儲存使用者搜尋資料
 
     elif msg == event.message.text :
 #         print(msg)
@@ -66,33 +65,43 @@ def handle_message(event):
             txt=f.readlines()
         keys=[r for r in range(1,len(txt)+1)]
         result={k:v for k,v in zip(keys,txt[::-1])} 
-        x = result[1].split("\n")[0]  #[n]=倒數第 n 筆 並去除換行符號
+        x = result[1] .split("\n")[0]  #[n]=倒數第 n 筆 並去除換行符號
         print(x)
 
         mydb = pymysql.connect(
         host='127.0.0.1',
         port=3306,
         user='root',
-        password='********', 
+        password='1813147cgs', #這個換成自己的密碼
         database='for_linebot'#這個以用 MySQl先建
         )
 
         mycursor = mydb.cursor()
 
-        mycursor.execute("SELECT cnurl FROM customers WHERE cntitle LIKE '%" + x + "%'") 
+        mycursor.execute("SELECT cnurl FROM customers WHERE cntitle LIKE '%" + x + "%'") #要想辦法把危險改成帶入X
 
         myresult = mycursor.fetchall()
 
         for xx in myresult:
             print(xx)
-            data = pd.DataFrame(xx)
-            print(data)           
+            url = "".join(xx)
+            file = open('./' + '丘志翔' +'url.txt', 'a')
+            file.write(url + "\n")
+            file.close() 
+
+        with open('./' + (user_name) +'url.txt') as u:
+            txt=u.readlines()
+        keys=[r for r in range(1,len(txt)+1)]
+        result={k:v for k,v in zip(keys,txt[::-1])} 
+        url = result[1].split("\n")[0]  #[n]=倒數第 n 筆 並去除換行符號
+        print(url)   
+        
             
                   
             
         line_bot_api.reply_message(event.reply_token, 
-                                           TextSendMessage(text = 'https://www.youtube.com/watch?v=Z2TtWeVK8CI' ))
-                                                                  #要想辦法把 xx 或 data 帶入text
+                                           TextSendMessage(text = url ))
+                                                                  
     
     
 # run app
